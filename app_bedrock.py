@@ -1,13 +1,17 @@
 import streamlit as st
 import boto3
 import json
+import os
+
+aws_access_key = os.getenv("AWS_ACCESS_KEY_ID")
+aws_secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+region = os.getenv("AWS_DEFAULT_REGION")
 
 # -------------------
 # AWS Clients
 # -------------------
-region_name = 'us-east-1'
-client = boto3.client('bedrock-agent-runtime', region_name=region_name)
-llm_client = boto3.client("bedrock-runtime", region_name=region_name)
+client = boto3.client('bedrock-agent-runtime',  aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key, region_name=region)
+llm_client = boto3.client("bedrock-runtime",  aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key, region_name=region)
 
 # -------------------
 # Streamlit UI
@@ -94,3 +98,4 @@ Any roadblocks:
 
         st.subheader("Expanded Requirement")
         st.write(expanded_req)
+
